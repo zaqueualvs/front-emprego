@@ -144,8 +144,12 @@ export class PainelComponent implements OnInit, OnDestroy {
     if (experience.id === null) {
       experienceForm.removeAt(index);
     } else {
-      this.userService.deleteExperience(this.form.get('email')?.value, experience.id).subscribe();
-      this.refresh()
+      this.userService.deleteExperience(this.form.get('email')?.value, experience.id).subscribe({
+          next: this.refresh,
+          error: error => {
+            console.log(error);
+          }
+        },);
     }
   }
   removeEducation(value: Education){
@@ -155,8 +159,12 @@ export class PainelComponent implements OnInit, OnDestroy {
     if(education.id === null){
       educationForm.removeAt(index);
     }else{
-      this.userService.deleteEducation(this.form.get('email')?.value, education.id).subscribe();
-      this.refresh();
+      this.userService.deleteEducation(this.form.get('email')?.value, education.id).subscribe({
+          next: this.refresh,
+          error: error => {
+            console.log(error);
+          }
+        },);
     }
   }
 
@@ -166,8 +174,12 @@ export class PainelComponent implements OnInit, OnDestroy {
 
   updateUser() {
     if (this.form.valid) {
-      this.userService.updateUser(this.form.value).subscribe();
-      this.refresh();
+      this.userService.updateUser(this.form.value).subscribe({
+          next: this.refresh,
+          error: error => {
+            console.log(error);
+          }
+        },);
     }
   }
 
