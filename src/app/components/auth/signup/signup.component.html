@@ -63,21 +63,6 @@
           <mat-error>{{ errorMessagePassword() }}</mat-error>
         }
       </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Confirme sua senha</mat-label>
-        <input matInput
-               formControlName="passwordConfirm" #passwordConfirm
-               [type]="hide() ? 'password' : 'text'"/>
-        <button
-          mat-icon-button
-          matSuffix
-          (click)="clickEvent($event)"
-          [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide()"
-        >
-          <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
-        </button>
-      </mat-form-field>
     </form>
 
     <div class="buttons">

@@ -52,10 +52,8 @@ export class FormValidationService {
     const phoneControl = form.get(controlName);
     if (phoneControl?.hasError('required')) {
       this.errorMessages.set(controlName, 'Vocẽ deve inserir seu telefone')
-    } else if (phoneControl?.hasError('minlength')) {
-      this.errorMessages.set(controlName, 'total de caracteres inferior')
-    } else if (phoneControl?.hasError('maxlength')) {
-      this.errorMessages.set(controlName, 'total de caracteres ultrapassou')
+    } else if (phoneControl?.hasError('pattern')) {
+      this.errorMessages.set(controlName, 'O campo telefone deve ter 11 dígitos.')
     } else {
       this.errorMessages.set(controlName, '')
     }
@@ -70,15 +68,4 @@ export class FormValidationService {
     }
   }
 
-  updateErrorMessagePasswordConfirm(controlName: string, controlNameConfim: string, form: FormGroup) {
-    const passwordControl = form.get(controlName);
-    const passwordConfirmControl = form.get(controlNameConfim);
-    if (passwordConfirmControl?.value !== passwordControl?.value) {
-      form.setErrors({passwordsMismatch: true});
-      this.errorMessages.set(controlName, 'Senhas diferentes');
-    } else {
-      this.errorMessages.set(controlName, '');
-      form.setErrors(null);
-    }
-  }
 }

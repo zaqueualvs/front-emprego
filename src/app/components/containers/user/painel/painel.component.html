@@ -154,13 +154,13 @@
                 </div>
                 <p>Cargo: {{ experience.position }}</p>
                 <p>Empresa: {{ experience.company }}</p>
-                <p>Descrição: {{ experience.description }}</p>
                 <p>Inicio: {{ experience.startDate | date:'MM/yyyy' }}</p>
                 @if (experience.isCurrent) {
                   <p>Até o momento</p>
                 } @else {
                   <p>Fim: {{ experience.endDate | date:'MM/yyyy' }}</p>
                 }
+                <p>Descrição: {{ experience.description }}</p>
               </div>
             }
           }

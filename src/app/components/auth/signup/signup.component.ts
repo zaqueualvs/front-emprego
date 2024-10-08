@@ -56,8 +56,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-        ...formValidators(null),
-        passwordConfirm: ['', [Validators.required]],
+        ...formValidators(null)
       }
     );
     this.formValidationService.setupControlWithErrorMessage(this.form, 'name', (controlName) => {
@@ -74,7 +73,6 @@ export class SignupComponent implements OnInit {
     });
     this.formValidationService.setupControlWithErrorMessage(this.form, 'password', (controlName) => {
       this.formValidationService.updateErrorMessagePassword(controlName, this.form);
-      this.formValidationService.updateErrorMessagePasswordConfirm(controlName, 'passwordConfirm', this.form);
       this.errorMessagePassword.set(<string>this.formValidationService.errorMessages.get(controlName));
     });
   }
@@ -83,7 +81,7 @@ export class SignupComponent implements OnInit {
     if (this.form.valid) {
       this.authService.create(this.form.value).subscribe({
         next: () => {
-          this.toastr.success('Conta criada com sucesso','SUCESSO');
+          this.toastr.success('Conta criada com sucesso', 'SUCESSO');
           this.onCancel();
         },
         error: (value) => {

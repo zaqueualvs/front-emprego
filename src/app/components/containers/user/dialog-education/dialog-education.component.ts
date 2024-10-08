@@ -83,7 +83,6 @@ export class DialogEducationComponent implements OnInit {
 
 
   onSave(): any {
-    console.log(this.form.valid)
     return this.form.valid ? this.form.value : null;
   }
 

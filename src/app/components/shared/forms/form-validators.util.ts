@@ -9,6 +9,6 @@ export function formValidators(user: User | null) {
   return {
     ...loginFormValidators(user),
     name: [user?.name, [Validators.required, Validators.minLength(nameMinSize), Validators.maxLength(nameMaxSize)]],
-    phone: [user?.phone, [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
-  };
+    phone: [user?.phone, [Validators.required, Validators.pattern(/^\d{11}$/)]],
+  }
 }
