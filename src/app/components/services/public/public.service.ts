@@ -20,7 +20,6 @@ export class PublicService {
   }
 
   listAllUsers(page = 0, pageSize = 8) {
-    console.log(this.API_URL)
     return this.http.get<UserPage>(`${this.API_URL}/users`, {params: {page, pageSize}});
   }
   findUserById(id: number) {

@@ -20,7 +20,6 @@ export class AuthService {
   }
 
   create(userSignup: UserSignup) {
-    console.log(this.API_AUTH)
     return this.http.post<string>(`${this.API_AUTH}/register`, userSignup);
   }
 

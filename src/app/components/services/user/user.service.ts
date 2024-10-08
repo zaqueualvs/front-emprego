@@ -21,7 +21,6 @@ export class UserService {
   }
 
   updateUser(user: User) {
-    console.log(user);
     return this.http.put(`${this.API_URL}/${user.email}`, user).pipe()
   }
 
@@ -30,11 +29,7 @@ export class UserService {
   }
 
   loadEnumsAcademicDegree() {
-    return this.http.get<AcademicDegreeEnum[]>(`${this.API_URL}/enums/academicDegree`).pipe(
-      tap((value) => {
-        console.log(value);
-      })
-    );
+    return this.http.get<AcademicDegreeEnum[]>(`${this.API_URL}/enums/academicDegree`).pipe();
   }
 
   deleteExperience(email: string, experienceId: number) {
