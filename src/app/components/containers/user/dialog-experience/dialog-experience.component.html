@@ -1,0 +1,70 @@
+<mat-card>
+  <h2 mat-dialog-title>Experiencia</h2>
+  <mat-dialog-content>
+    <p>Insira a experiencia</p>
+    <form [formGroup]="form">
+      <mat-form-field class="form-detail" appearance="outline">
+        <mat-label>Posição</mat-label>
+        <input
+          matInput
+          placeholder="Arquiteto"
+          formControlName="position" #position
+          required
+        >
+      </mat-form-field>
+      <mat-form-field class="form-detail" appearance="outline">
+        <mat-label>Empresa</mat-label>
+        <input
+          matInput
+          placeholder="DX engenharia"
+          formControlName="company" #company
+          required
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data de inicio</mat-label>
+        <input
+          matInput
+          formControlName="startDate" #startDate
+          [matDatepicker]="start"
+          required
+        >
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="start"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #start></mat-datepicker>
+      </mat-form-field>
+
+      <p>
+        <mat-checkbox formControlName="isCurrent">Até o momento</mat-checkbox>
+      </p>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data de fim</mat-label>
+        <input
+          matInput
+          formControlName="endDate" #endDate
+          [matDatepicker]="end">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix [for]="end">
+        </mat-datepicker-toggle>
+        <mat-datepicker touchUi #end></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="form-detail" appearance="outline">
+        <mat-label>Descriçao</mat-label>
+        <textarea
+          matInput
+          placeholder="Era responsavel por fazer o designer..."
+          formControlName="description" #description
+        >
+      </textarea>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-flat-button color="warn" (click)="onNoClick()">Cancelar</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="onSave()" cdkFocusInitial>Ok</button>
+  </mat-dialog-actions>
+</mat-card>

@@ -1,0 +1,36 @@
+.mat-card-main {
+  width: 600px;
+  max-width: 90%;
+  margin: 2em auto;
+  background-color: #f1f1f1;
+  box-shadow: 0 0 4px 4px gray;
+}
+mat-toolbar {
+  justify-content: center;
+}
+.photo{
+  text-align: center;
+}
+img{
+  width: 250px;
+  height: 250px;
+}
+.info{
+  padding: 30px;
+}
+.info-pessoal{
+  margin: 6px;
+  padding-left: 30px;
+  border-radius: 10px;
+  border: 2px solid darkgray;
+}
+.button{
+  margin: 1em auto;
+}
+.padding{
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid darkgray;
+}
+

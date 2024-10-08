@@ -1,0 +1,63 @@
+<mat-card>
+  <h2 mat-dialog-title>Educação</h2>
+  <mat-dialog-content>
+    <p>Insira a educação</p>
+    <form [formGroup]="form">
+      <mat-form-field class="form-detail" appearance="outline">
+        <mat-label>Curso</mat-label>
+        <input
+          matInput
+          placeholder="Arquitetura"
+          formControlName="course" #course
+          required
+        >
+      </mat-form-field>
+      <mat-form-field class="form-detail" appearance="outline">
+        <mat-label>Instituição</mat-label>
+        <input
+          matInput
+          placeholder="CETEP"
+          formControlName="institution" #institution
+          required
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Grau acadêmico</mat-label>
+        <mat-select>
+          @for (academic of academicDegree$ | async; track academic) {
+            <mat-option
+              value="academic" (click)="onSelectAcademicDegree(academic)">{{ academic.description }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select>
+
+          @for (status of status$ | async; track status) {
+            <mat-option
+              value="status" (click)="onSelectStatus(status)">{{ status.description }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-detail" appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <textarea
+          matInput
+          placeholder="Ex. Curso de foração na area de arquitetura"
+          formControlName="description" #description
+        >
+      </textarea>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-flat-button color="warn" (click)="onNoClick()">Cancelar</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="onSave()" cdkFocusInitial>Ok</button>
+  </mat-dialog-actions>
+</mat-card>

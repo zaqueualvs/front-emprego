@@ -1,0 +1,59 @@
+.cards {
+  max-width: 95%;
+  margin: 2rem 0 1rem 0;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 22% 22% 22% 22%;
+  grid-template-rows: auto;
+  gap: 30px;
+  border-radius: 20px;
+}
+
+.card-curriculo {
+  box-shadow: 0 0 4px 4px #e6e6e6;
+  border-radius: 10px;
+  border: 2px solid #b5b4b4;
+  padding-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+
+  .userPhoto {
+    margin-top: 5px;
+
+    img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+}
+
+.curriculo-detail:hover {
+  color: blue;
+}
+
+.curriculo-detail:active {
+  color: greenyellow;
+}
+
+.curriculo-detail {
+  cursor: pointer;
+}
+@media (max-width: 1200px) {
+  .cards {
+    grid-template-columns: 30% 30% 30%;
+  }
+}
+
+@media (max-width: 800px) {
+  .cards {
+    grid-template-columns: 40% 40%;
+  }
+}
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: minmax(100px, 1fr);
+  }
+}

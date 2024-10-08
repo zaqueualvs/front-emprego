@@ -1,0 +1,20 @@
+.mat-signup {
+  width: 400px;
+  max-width: 90%;
+  min-height: 100px;
+  margin: 2em auto;
+  text-align: center;
+  background-color: #f1f1f1;
+  box-shadow: 0 0 4px 4px gray;
+}
+.buttons{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2em;
+}
+.signup-form{
+  margin: 2em auto;
+}
+mat-toolbar{
+  justify-content: center;
+}

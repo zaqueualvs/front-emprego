@@ -1,0 +1,88 @@
+<mat-card class="mat-signup" appearance="outlined">
+  <mat-toolbar color="primary"> Criar conta</mat-toolbar>
+  <section class="signup-form">
+    <form [formGroup]="form" class="forms">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Insira seu nome</mat-label>
+        <input
+          matInput
+          placeholder="Ana Paula"
+          formControlName="name" #name
+          required
+        >
+        @if (form.invalid) {
+          <mat-error>{{ errorMessageName() }}</mat-error>
+        }
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Insira seu email</mat-label>
+        <input
+          matInput
+          placeholder="ana@gmail.com"
+          formControlName="email" #email
+          required
+        />
+        @if (form.invalid) {
+          <mat-error>{{ errorMessageEmail() }}</mat-error>
+        }
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Insira seu telefone</mat-label>
+        <input
+          matInput
+          placeholder="75999887766"
+          formControlName="phone" #phone
+          required
+        >
+        @if (form.invalid) {
+          <mat-error>{{ errorMessagePhone() }}</mat-error>
+        }
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Insira sua senha</mat-label>
+        <input matInput
+               formControlName="password" #password
+               [type]="hide() ? 'password' : 'text'"/>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+        >
+          <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (form.invalid) {
+          <mat-error>{{ errorMessagePassword() }}</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Confirme sua senha</mat-label>
+        <input matInput
+               formControlName="passwordConfirm" #passwordConfirm
+               [type]="hide() ? 'password' : 'text'"/>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+        >
+          <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+
+    <div class="buttons">
+      <button mat-flat-button color="warn" (click)="onCancel()">Cancelar</button>
+      <button mat-flat-button color="primary" (click)="onCreateAccount()">Criar</button>
+    </div>
+  </section>
+</mat-card>

@@ -1,0 +1,54 @@
+<mat-card class="main-login" appearance="outlined">
+  <div>
+    <mat-toolbar color="primary">Login</mat-toolbar>
+
+    <section class="form-login">
+      <form [formGroup]="form" class="forms">
+        <mat-form-field appearance="outline">
+          <mat-label>Email de usuario</mat-label>
+          <input
+            matInput
+            placeholder="ana@gmail.com"
+            formControlName="email" #email
+            required
+          />
+          @if (form.invalid) {
+            <mat-error>{{ errorMessageEmail() }}</mat-error>
+          }
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Insira sua senha</mat-label>
+          <input matInput
+                 formControlName="password" #password
+                 [type]="hide() ? 'password' : 'text'"/>
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="clickEvent($event)"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()"
+          >
+            <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (form.invalid) {
+            <mat-error>{{ errorMessagePassword() }}</mat-error>
+          }
+        </mat-form-field>
+      </form>
+
+      <div class="button-login">
+        <button mat-flat-button color="primary" class="button-login" (click)="submit()">Entrar</button>
+      </div>
+
+      <div class="button-nova-conta">
+        <p>Não tem cadastro? <a class="criar-conta" (click)="onCreateAccount()">Crie uma conta</a></p>
+      </div>
+      <div class="button-back">
+        <button mat-flat-button color="primary" (click)="back()">Voltar</button>
+      </div>
+    </section>
+  </div>
+</mat-card>
+

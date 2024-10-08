@@ -1,0 +1,48 @@
+.mat-card-main {
+  max-width: 90%;
+  margin: 2em auto;
+  text-align: center;
+  background-color: #f1f1f1;
+  box-shadow: 0 0 4px 4px gray;
+}
+.title {
+  text-align: center;
+  justify-content: center;
+}
+.loading-spinner {
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.opcao-categoria {
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.texto-opcao {
+  background-color: aliceblue;
+  border-radius: 15px;
+}
+
+.texto-opcao1 {
+  margin: 25px;
+  font-size: large;
+}
+
+.form-categoria {
+  margin: 8px;
+}
+.button{
+  margin: 10px;
+}
+@media (max-width: 600px) {
+  .opcao-categoria{
+    display: flex;
+    flex-direction: column;
+    height: 170px;
+  }
+}

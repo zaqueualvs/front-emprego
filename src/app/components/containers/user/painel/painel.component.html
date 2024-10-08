@@ -1,0 +1,178 @@
+<mat-card class="card-painel">
+  <mat-toolbar color="primary">Painel</mat-toolbar>
+  <section>
+    <h1>Bem vindo ao painel</h1>
+    <form [formGroup]="form">
+
+      <section class="example-section">
+        <mat-slide-toggle
+          class="example-margin"
+          formControlName="show" #show>
+          {{ getShowMessage() }}
+        </mat-slide-toggle>
+        <button mat-flat-button color="primary" (click)="openDialogRecharge()"> Recarregar</button>
+      </section>
+
+      <p>Perfil expira em {{ this.user?.displayExpiration | date:'dd/MM/yyyy' }}</p>
+
+      <div style="padding:20px">
+        <mat-form-field appearance="outline">
+          <mat-label>Foto de perfil</mat-label>
+          <div class="fileUploadContainer" [ngStyle]="{'margin-top' : form.get('photo')!.value ? '5px' :  '20px'}">
+            @if (form.get('photo')!.value) {
+              <ng-container>
+                <img [src]="form.get('photo')!.value" alt=""/>
+                <button class="deleteButton" mat-icon-button
+                        (click)="fileInput.value = ''; form.get('photo')?.setValue(null);">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </ng-container>
+            }
+            <!-- no image -->
+            @if (!form.get('photo')!.value) {
+              <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <mat-icon style="opacity: 60%;">file_upload</mat-icon>
+                <button mat-raised-button color="primary" style="width:100%; opacity: 80%;">Procurar</button>
+                <small style="margin: 10px">Arraste e solte aqui</small>
+              </div>
+            }
+            <!-- put on top of the fileUploadContainer with opacity 0 -->
+            <input #fileInput class="fileInput" type="file" multiple="multiple" accept="image/*"
+                   (change)="setFileData($event)"/>
+          </div>
+          <input matInput formControlName="photo" readonly [hidden]="true"/>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="form-detail" appearance="outline">
+        <mat-label>Seu nome</mat-label>
+        <input
+          matInput
+          placeholder="Ana Paula"
+          formControlName="name" #name
+          (blur)="errorMessageName()"
+          required
+        >
+        @if (form.invalid) {
+          <mat-error>{{ errorMessageName() }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-detail" appearance="outline">
+        <mat-label>Seu telefone</mat-label>
+        <input
+          matInput
+          placeholder="75999887766"
+          formControlName="phone" #phone
+          required
+        >
+        @if (form.invalid) {
+          <mat-error>{{ errorMessagePhone() }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-detail" appearance="outline">
+        <mat-label>Selecione as categorias</mat-label>
+        <mat-select formControlName="categories" multiple>
+          @for (category of categories$ | async; track category.id) {
+            <mat-option [value]="category.id">{{ category.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <div class="buttons">
+        <button mat-flat-button color="primary" class="button-aba-nova" (click)="openDialogEducation(null)"> Adicionar
+          educação
+        </button>
+        <button mat-flat-button color="primary" class="button-aba-nova" (click)="openDialogExperience(null)"> Adicionar
+          experiencia profissional
+        </button>
+      </div>
+
+      @if (this.form.get('resume'); as resume) {
+        <section class="resume">
+          @if (resume.get('educations'); as educations) {
+            <h2>Educação</h2>
+            @for (education of educations.value; track education) {
+              <div class="padding">
+                <div class="icon">
+                  <button
+                    class="edit"
+                    (click)="openDialogEducation(education)"
+                    color="primary"
+                    mat-mini-fab>
+                    <mat-icon
+                      aria-hidden="false" aria-label="edit icon"
+                      fontIcon="edit"></mat-icon>
+                  </button>
+                  <button
+                    (click)="removeEducation(education)"
+                    mat-mini-fab
+                    color="warn">
+                    <mat-icon
+                      aria-hidden="false"
+                      aria-label="edit icon"
+                      fontIcon="delete_forever">
+                    </mat-icon>
+                  </button>
+                </div>
+                <p>Instituição: {{ education.institution }}</p>
+                <p>Curso: {{ education.course }}</p>
+                <p>Grau: {{ education.academicDegree.description }}</p>
+                <p>Status: {{ education.status.description }}</p>
+                <p>Descrição: {{ education.description }}</p>
+              </div>
+            }
+          }
+          @if (resume.get('professionalExperiences'); as experiences) {
+            <h2>Experiência profissional</h2>
+            @for (experience of experiences.value; track experience) {
+              <div class="padding">
+                <div class="icon">
+
+                  <button
+                    mat-mini-fab
+                    (click)="openDialogExperience(experience)"
+                    color="primary"
+                    class="edit">
+                    <mat-icon
+                      aria-hidden="false" aria-label="edit icon"
+                      fontIcon="edit">
+                    </mat-icon>
+                  </button>
+                  <button
+                    (click)="removeExperience(experience)"
+                    mat-mini-fab
+                    color="warn">
+                    <mat-icon
+                      aria-hidden="false"
+                      aria-label="edit icon"
+                      fontIcon="delete_forever">
+                    </mat-icon>
+                  </button>
+
+                </div>
+                <p>Cargo: {{ experience.position }}</p>
+                <p>Empresa: {{ experience.company }}</p>
+                <p>Descrição: {{ experience.description }}</p>
+                <p>Inicio: {{ experience.startDate | date:'MM/yyyy' }}</p>
+                @if (experience.isCurrent) {
+                  <p>Até o momento</p>
+                } @else {
+                  <p>Fim: {{ experience.endDate | date:'MM/yyyy' }}</p>
+                }
+              </div>
+            }
+          }
+        </section>
+      }
+
+    </form>
+
+    <div class="buttons">
+      <button mat-flat-button color="primary" [routerLink]="['/']">ir para a tela inicial</button>
+      <button mat-flat-button color="primary" (click)="updateUser()">Salvar</button>
+    </div>
+
+  </section>
+</mat-card>

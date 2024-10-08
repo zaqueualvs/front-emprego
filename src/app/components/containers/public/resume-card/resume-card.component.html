@@ -1,0 +1,32 @@
+<mat-card>
+  <div class="cards">
+    @for (publicUser of publicUsers; track publicUser) {
+      <section (click)="onDetail(publicUser)" class="curriculo-detail">
+        <div class="card-curriculo">
+          <div class="userPhoto">
+            @if (publicUser.photo){
+              <img mat-card-avatar src="{{publicUser.photo}}" alt="Foto de perfil de usuário">
+            } @else {
+              <img mat-card-avatar src="assets/img.png" alt="Foto de perfil de usuário">
+            }
+          </div>
+          <div>
+            <h2>{{ publicUser.name }}</h2>
+          </div>
+          <div>
+            <p> Telefone: {{ publicUser.phone }}</p>
+            <p>Email: {{ publicUser.email }}</p>
+          </div>
+          <div>
+            <p>Categorias</p>
+            @for (categoria_publicUser of publicUser.categories; track categoria_publicUser) {
+              <mat-chip>{{ categoria_publicUser.name }}</mat-chip>
+            } @empty {
+              <p>Sem categoria cadastra</p>
+            }
+          </div>
+        </div>
+      </section>
+    }
+  </div>
+</mat-card>

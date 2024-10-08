@@ -1,0 +1,51 @@
+<mat-card class="mat-card-main">
+
+  <mat-toolbar color="primary" class="title">
+    <h4>Anúncios de serviços</h4>
+  </mat-toolbar>
+
+  <section class="opcao-categoria">
+    <div class="texto-opcao">
+      <p class="texto-opcao1">Selecione uma categoria de serviço</p>
+    </div>
+    <div class="form-categoria">
+      <mat-form-field class="form-categoria1">
+        <mat-label>Categoria de serviço</mat-label>
+        <mat-select (selectionChange)="listUsersByCategory($event)">
+          <mat-option>Todas as Categorias</mat-option>
+          @for (category of categories$ | async; track category) {
+            <mat-option [value]="category">{{ category.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </section>
+
+  @if (userPage$ | async; as userPage) {
+    <app-resume-card
+      [publicUsers]="userPage.users"
+      (publicUserDetail)="onDetail($event)"
+    ></app-resume-card>
+    <mat-paginator
+      [pageSizeOptions]="[8,16,32]"
+      showFirstLastButtons
+      [length]="userPage.totalElements"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      (page)="refresh($event)"
+
+      aria-label="Selecione uma pagina de curriculo"
+    >
+    </mat-paginator>
+  } @else {
+    <div class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+
+  <div class="button">
+    <button mat-flat-button color="primary" [routerLink]="['/']">ir para a tela inicial</button>
+  </div>
+
+</mat-card>

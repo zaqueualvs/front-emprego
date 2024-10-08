@@ -1,0 +1,65 @@
+<mat-card class="mat-card-main">
+  <mat-toolbar color="primary">Detalhes</mat-toolbar>
+  <section class="info">
+    <div class="photo">
+      @if (publicUser?.photo){
+        <img mat-card-avatar src="{{publicUser?.photo}}" alt="Foto de perfil do usuário">
+      }@else{
+        <img mat-card-avatar src="assets/img.png" alt="Foto de perfil do usuário">
+      }
+    </div>
+    <div class="info-pessoal">
+      <h2>Infomações Pessoais</h2>
+      <p>Nome: {{ publicUser?.name }}</p>
+      <p>Email: {{ publicUser?.email }}</p>
+      <p>Telefone: {{ publicUser?.phone }}</p>
+    </div>
+    @if (publicUser?.categories; as categories) {
+      <div class="info-pessoal">
+        <h2>Categorias: </h2>
+        @for (category of categories; track category) {
+          <ul>
+            <li>{{ category.name }}</li>
+          </ul>
+        }
+      </div>
+    }
+    @if (publicUser?.resume; as resume) {
+      @if (resume.educations; as educations) {
+        <section class="info-pessoal">
+          <h2>Educação</h2>
+          @for (education of educations; track education) {
+            <div class="padding">
+              <p>Instituição: {{ education.institution }}</p>
+              <p>Curso: {{ education.course }}</p>
+              <p>Grau: {{ education.academicDegree.description }}</p>
+              <p>Status: {{ education.status.description }}</p>
+              <p>Descrição: {{ education.description }}</p>
+            </div>
+          }
+        </section>
+      }
+      @if (resume.professionalExperiences; as experiences) {
+        <section class="info-pessoal">
+          <h2>Experiência profissional</h2>
+          @for (experience of experiences; track experience) {
+            <div class="padding">
+              <p>Cargo: {{ experience.position }}</p>
+              <p>Empresa: {{ experience.company }}</p>
+              <p>Descrição: {{ experience.description }}</p>
+              <p>Inicio: {{ experience.startDate | date:'MM/yyyy' }}</p>
+              @if (experience.isCurrent) {
+                <p>Até o momento</p>
+              } @else {
+                <p>Fim: {{ experience.endDate | date:'MM/yyyy' }}</p>
+              }
+            </div>
+          }
+        </section>
+      }
+    }
+  </section>
+  <div class="button">
+    <button mat-flat-button color="primary" (click)="back()">Voltar</button>
+  </div>
+</mat-card>
