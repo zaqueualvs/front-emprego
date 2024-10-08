@@ -1,7 +1,7 @@
 import {Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
 import {MatCardModule} from "@angular/material/card";
 import {MatToolbarModule} from "@angular/material/toolbar";
-import {ActivatedRoute,RouterLink} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatButton, MatFabButton, MatIconButton, MatMiniFabButton} from "@angular/material/button";
 import {User} from "../../../model/user";
@@ -37,6 +37,7 @@ import {DialogRechargeComponent} from "../dialog-recharge/dialog-recharge.compon
 import {ToastrService} from "ngx-toastr";
 import {MatChip, MatChipSet} from "@angular/material/chips";
 
+// @ts-ignore
 @Component({
   selector: 'app-painel',
   standalone: true,
@@ -63,7 +64,7 @@ import {MatChip, MatChipSet} from "@angular/material/chips";
     MatFabButton,
     MatMiniFabButton,
     MatChipSet,
-    MatChip
+    MatChip,
   ],
   templateUrl: './painel.component.html',
   styleUrl: './painel.component.scss'
@@ -130,7 +131,7 @@ export class PainelComponent implements OnInit, OnDestroy {
     const experiences = this.form.get('resume.professionalExperiences') as FormArray;
     const dialogRef = this.dialog.open(DialogExperienceComponent, {data: experience});
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== null  && result !== undefined) {
+      if (result !== null && result !== undefined) {
         const index = experiences.controls.findIndex((ctrl) => ctrl.value === experience);
         this.addExperience(result, experiences, index);
       }
@@ -145,26 +146,35 @@ export class PainelComponent implements OnInit, OnDestroy {
       experienceForm.removeAt(index);
     } else {
       this.userService.deleteExperience(this.form.get('email')?.value, experience.id).subscribe({
-          next: this.refresh,
-          error: error => {
-            console.log(error);
-          }
-        },);
+        next: () => {
+          this.toastr.success('Removido com sucesso', 'SUCESSO');
+          this.refresh;
+        },
+        error: error => {
+          this.toastr.error('Erro interno', 'ERRO');
+          console.log(error);
+        }
+      },);
     }
   }
-  removeEducation(value: Education){
+
+  removeEducation(value: Education) {
     const educationForm = this.form.get('resume.educations') as FormArray;
     const index = educationForm.controls.findIndex((ctrl) => ctrl.value === value);
     const education = educationForm.at(index).value
-    if(education.id === null){
+    if (education.id === null) {
       educationForm.removeAt(index);
-    }else{
+    } else {
       this.userService.deleteEducation(this.form.get('email')?.value, education.id).subscribe({
-          next: this.refresh,
-          error: error => {
-            console.log(error);
-          }
-        },);
+        next: () => {
+          this.toastr.success('Removido com sucesso', 'SUCESSO');
+          this.refresh;
+        },
+        error: error => {
+          this.toastr.error('Erro interno', 'ERRO');
+          console.log(error);
+        }
+      },);
     }
   }
 
@@ -175,11 +185,15 @@ export class PainelComponent implements OnInit, OnDestroy {
   updateUser() {
     if (this.form.valid) {
       this.userService.updateUser(this.form.value).subscribe({
-          next: this.refresh,
-          error: error => {
-            console.log(error);
-          }
-        },);
+        next: () => {
+          this.toastr.success('Atualização feita com sucesso', 'SUCESSO');
+          this.refresh;
+        },
+        error: error => {
+          this.toastr.error('Erro interno', 'ERRO');
+          console.log(error);
+        }
+      },);
     }
   }
 

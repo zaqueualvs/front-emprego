@@ -9,6 +9,9 @@ import {AppComponent} from './app/app.component';
 import {routes} from './app/app.routes';
 import {authTokenInterceptor} from "./app/components/interceptor/auth-token.interceptor";
 import {MatNativeDateModule} from "@angular/material/core";
+import { inject } from "@vercel/analytics"
+
+inject();
 
 bootstrapApplication(AppComponent, {
   providers: [
